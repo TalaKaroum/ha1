@@ -106,6 +106,42 @@ void testSimpleSubtraction() {
     assertEquals(expected, actual);
 }
 
+    @Test
+    @DisplayName("should display correct result when dividing by a negative number")
+    void testDivisionByNegativeNumber() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(10);  // 10
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(0);   // Division durch 0 sollte "Error" anzeigen
+        calc.pressEqualsKey();
+
+        String expected = "Error"; // Wir erwarten "Error" bei Division durch 0
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual); // Dieser Test wird immer rot sein, da 10 / -0.0 nicht behandelt wird.
+    }
+
+
+
+    @Test
+    @DisplayName("should reset only the current entry after pressing clear once during an operation")
+    void testClearDuringOperation() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(9);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressClearKey(); // Erwartung: Löscht nur die aktuelle Eingabe (5)
+        calc.pressDigitKey(3); // Neue Eingabe nach CE
+        calc.pressEqualsKey();
+
+        String expected = "12"; // 9 + 3 sollte 12 ergeben
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
 
 
