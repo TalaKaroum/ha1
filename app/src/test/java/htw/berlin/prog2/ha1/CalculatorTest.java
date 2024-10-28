@@ -97,10 +97,10 @@ void testSimpleSubtraction() {
 
     calc.pressDigitKey(8);
     calc.pressBinaryOperationKey("-");
-    calc.pressDigitKey(3);
+    calc.pressDigitKey(2);
     calc.pressEqualsKey();
 
-    String expected = "5";
+    String expected = "6";
     String actual = calc.readScreen();
 
     assertEquals(expected, actual);
