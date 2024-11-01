@@ -108,34 +108,31 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should correctly multiply two decimal numbers")
-    void testMultiplicationWithDecimalNumbers() {
+    @DisplayName("should display error when equals key is pressed without second operand")
+    void testEqualsWithoutSecondOperand() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(2);
-        calc.pressDotKey();
-        calc.pressDigitKey(5); // 2.5 eingegeben
-        calc.pressBinaryOperationKey("x");
-        calc.pressDigitKey(4);
-        calc.pressEqualsKey();
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressEqualsKey(); // Drücken der Gleichheitstaste ohne zweiten Operand
 
-        String expected = "10.0";
+        String expected = "Error";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
 
     @Test
-    @DisplayName("should correctly handle subtraction of a negative number")
-    void testSubtractionWithNegativeNumber() {
+    @DisplayName("should throw an error for an unsupported operation")
+    void testUnsupportedOperation() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(-3);
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("%"); // Eine nicht unterstützte Operation
+        calc.pressDigitKey(2);
         calc.pressEqualsKey();
 
-        String expected = "8";
+        String expected = "Error";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
